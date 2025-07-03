@@ -1,4 +1,4 @@
-import os
+import os,json
 from google import genai
 from core.secrets import get_secret_value
 
@@ -20,4 +20,4 @@ class NFEAAgent:
                 response_mime_type='application/json',
             ),
         )
-        return response.text
+        return json.loads(response.text)
