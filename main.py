@@ -1,4 +1,4 @@
-from layers.models import ReviewLayerBuilder
+from layers.models import review_layer
 from fastapi import FastAPI, Query
 from fastapi.responses import JSONResponse
 import uvicorn
@@ -7,25 +7,25 @@ app = FastAPI()
 
 @app.get("/all")
 def analyze_all(text: str = Query(..., description="Input text to analyze")):
-    engine = ReviewLayerBuilder().build()
+    engine = review_layer.ReviewLayerBuilder().build()
     result = engine.analyze_review(text)
     return JSONResponse(content=result)
 
 @app.get("/sentiment")
 def analyze_sentiment(text: str = Query(..., description="Input text to analyze")):
-    engine = ReviewLayerBuilder().with_sentiment_layer("default").build()
+    engine = review_layer.ReviewLayerBuilder().with_sentiment_layer("default").build()
     result = engine.analyze_review(text)
     return JSONResponse(content=result)
 
 @app.get("/lang")
 def analyze_language(text: str = Query(..., description="Input text to analyze")):
-    engine = ReviewLayerBuilder().with_language_layer("default").build()
+    engine = review_layer.ReviewLayerBuilder().with_language_layer("default").build()
     result = engine.analyze_review(text)
     return JSONResponse(content=result)
 
 @app.get("/toxic")
 def analyze_toxicity(text: str = Query(..., description="Input text to analyze")):
-    engine = ReviewLayerBuilder().with_toxicity_layer("default").build()
+    engine = review_layer.ReviewLayerBuilder().with_toxicity_layer("default").build()
     result = engine.analyze_review(text)
     return JSONResponse(content=result)
 
