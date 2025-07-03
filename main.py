@@ -1,13 +1,14 @@
-from layers.review_layer import ReviewLayer
+from layers.models import ReviewLayerBuilder
 
 if __name__ == "__main__":
     samples = [
-        "Mahmoud Nasr",
-        "enta 7mar w 5ara",
-        "How are you, friend?"
+     "a7a aybn el metnaka",
+     "ana 7mar w 5ara",
+     "How are you, friend?",
+     "Good product, but the price is too high."
     ]
 
-    engine = ReviewLayer()
+    engine = ReviewLayerBuilder().with_toxicity_layer("default").build()
     for s in samples:
         print(f"\nReview: {s}")
         print("Result:", engine.analyze_review(s))
