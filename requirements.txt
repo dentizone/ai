@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+python-dotenv
+transformers
+google-genai
+infisical  # infisical_sdk in code, but PyPI package is 'infisical' 
