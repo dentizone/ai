@@ -26,10 +26,9 @@ COPY requirements.txt .
 # Install torch CPU wheel from official source for smallest size
 RUN pip install --upgrade pip && \
     pip install --no-cache-dir --extra-index-url https://download.pytorch.org/whl/cpu -r requirements.txt && \
-    # Remove unnecessary files to reduce size
+    # Remove unnecessary files to reduce size (but keep .dist-info for package metadata)
     find /opt/venv -name "*.pyc" -delete && \
     find /opt/venv -name "__pycache__" -type d -exec rm -rf {} + && \
-    find /opt/venv -name "*.dist-info" -type d -exec rm -rf {} + && \
     find /opt/venv -name "tests" -type d -exec rm -rf {} + && \
     find /opt/venv -name "test" -type d -exec rm -rf {} +
 
@@ -66,9 +65,6 @@ USER app
 # Expose port
 EXPOSE 8000
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-    CMD python -c "import requests; requests.get('http://localhost:8000/docs')" || exit 1
 
 # Run the app
 CMD ["python", "main.py"] 
