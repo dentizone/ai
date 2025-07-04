@@ -73,7 +73,6 @@ coverage.xml
 
 # Model files
 downloaded_models/
-models/
 
 # System files
 .DS_Store
